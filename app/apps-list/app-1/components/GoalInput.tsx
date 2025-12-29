@@ -44,7 +44,7 @@ export default function GoalInput({
       onRequestClose={endAddGoalModalhandler}
     >
       <View style={styles.inputContainer}>
-        <Image source={require("../../assets/images/react-logo.png")} />
+        <Image source={require("../../../../assets/images/react-logo.png")} />
         <Text style={styles.heading}>Add your Goal</Text>
         <TextInput
           style={styles.textInput}
