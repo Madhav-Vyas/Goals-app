@@ -1,11 +1,31 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import {
+  Image,
+  StyleSheet,
+  Text,
+  useWindowDimensions,
+  View,
+} from "react-native";
 import { PrimaryButton } from "../components/PrimaryButton";
 import Title from "../components/Title";
 function GameOverScreen({ roundsNumber, userNumber, onStartNewGame }) {
+  const { width, height } = useWindowDimensions();
+  let imageSize = 300;
+
+  if (width < 380) {
+    imageSize = 150;
+  }
+  if (height < 500) {
+    imageSize = 80;
+  }
+  const imageStyle = {
+    width: imageSize,
+    height: imageSize,
+    borderRadius: imageSize / 2,
+  };
   return (
     <View style={styles.container}>
       <Title title={"Game Over!"}></Title>
-      <View style={styles.imageContainer}>
+      <View style={[styles.imageContainer, imageStyle]}>
         <Image
           source={require("../../assets/images/success.png")}
           style={styles.image}
@@ -18,9 +38,7 @@ function GameOverScreen({ roundsNumber, userNumber, onStartNewGame }) {
           <Text style={styles.text}>{userNumber}</Text>.
         </Text>
       </View>
-      <PrimaryButton onPress={onStartNewGame} label={"Start New Game"}>
-        Start New Game
-      </PrimaryButton>
+      <PrimaryButton onPress={onStartNewGame} label={"Start New Game"} />
     </View>
   );
 }
@@ -36,10 +54,6 @@ const styles = StyleSheet.create({
     fontSize: 24,
   },
   imageContainer: {
-    width: 300,
-    height: 300,
-    marginTop: 20,
-    borderRadius: 150,
     borderWidth: 3,
     borderColor: "#ddb52f",
     overflow: "hidden",

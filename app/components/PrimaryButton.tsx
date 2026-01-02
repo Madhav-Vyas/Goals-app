@@ -19,8 +19,8 @@ export const PrimaryButton = ({ label, onPress }) => {
 const styles = StyleSheet.create({
   buttonOuterContainer: {
     borderRadius: 28,
-    margin: 4,
     overflow: "hidden",
+    // width: "40%",
   },
   container: {
     backgroundColor: "#72063c",
@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: "white",
+    fontSize: 18,
     textAlign: "center",
   },
   pressed: {

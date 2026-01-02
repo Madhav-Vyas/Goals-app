@@ -1,8 +1,18 @@
 import { useState } from "react";
-import { Alert, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  Alert,
+  KeyboardAvoidingView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  useWindowDimensions,
+  View,
+} from "react-native";
 import { PrimaryButton } from "../components/PrimaryButton";
 import Title from "../components/Title";
 function StartGameScreen({ onPickNumber }) {
+  const { width, height } = useWindowDimensions();
   const [enteredNumber, setEnteredNumber] = useState("");
 
   const numberInputHandler = (enteredText) => {
@@ -28,34 +38,38 @@ function StartGameScreen({ onPickNumber }) {
     }
     onPickNumber(chosenNumber);
   };
-
+  const marginTopDistance = height < 600 ? 20 : 100;
   return (
-    <View>
-      <View style={{ paddingHorizontal: 20 }}>
-        <Title title="Guess My Number" />
-      </View>
-      <View style={styles.container}>
-        <Text style={styles.instructionText}>Enter a Number</Text>
-        <TextInput
-          style={styles.numberInput}
-          maxLength={2}
-          keyboardType="number-pad"
-          autoCapitalize="none"
-          autoCorrect={false}
-          onChangeText={numberInputHandler}
-          value={enteredNumber}
-        />
-
-        <View style={styles.buttonContainer}>
-          <View style={styles.buttonStyles}>
-            <PrimaryButton label="Reset" onPress={resetInputHandler} />
+    <ScrollView style={{ flex: 1 }}>
+      <KeyboardAvoidingView style={{ flex: 1 }} behavior="position">
+        <View>
+          <View style={{ paddingHorizontal: 20 }}>
+            <Title title="Guess My Number" />
           </View>
-          <View style={styles.buttonStyles}>
-            <PrimaryButton label="Confirm" onPress={confirmInputHandler} />
+          <View style={[styles.container, { marginTop: marginTopDistance }]}>
+            <Text style={styles.instructionText}>Enter a Number</Text>
+            <TextInput
+              style={styles.numberInput}
+              maxLength={2}
+              keyboardType="number-pad"
+              autoCapitalize="none"
+              autoCorrect={false}
+              onChangeText={numberInputHandler}
+              value={enteredNumber}
+            />
+
+            <View style={styles.buttonContainer}>
+              <View style={styles.buttonStyles}>
+                <PrimaryButton label="Reset" onPress={resetInputHandler} />
+              </View>
+              <View style={styles.buttonStyles}>
+                <PrimaryButton label="Confirm" onPress={confirmInputHandler} />
+              </View>
+            </View>
           </View>
         </View>
-      </View>
-    </View>
+      </KeyboardAvoidingView>
+    </ScrollView>
   );
 }
 
@@ -69,7 +83,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#33011aff",
 
     gap: 4,
-    marginTop: 100,
+
     alignItems: "center",
     margin: 16,
     borderRadius: 20,
